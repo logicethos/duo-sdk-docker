@@ -9,6 +9,7 @@ RUN apt-get update \
     && apt-get install -y \
     wget git make build-essential libtool
 
+#Make a libs output directory for our builds
 RUN mkdir -p /build-libs
 
 ENV CC=riscv64-unknown-linux-musl-gcc
@@ -22,11 +23,12 @@ ENV CFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 ENV CXXFLAGS="-Wall -O3 -mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d"
 ENV PATH="$PATH:${TOOLCHAIN_DIR}/bin"
 ENV CPPFLAGS="-I/build-libs/include"
-ENV LD_LIBRARY_PATH="/usr/local/lib"
+ENV LD_LIBRARY_PATH="/build-libs/lib"
 
+#Download and install SDK
 RUN wget ${SDK_URL} -O duo-sdk.tar.gz
 RUN tar -xzf duo-sdk.tar.gz
 RUN rm -r duo-sdk.tar.gz
 
-
+#Default to a bash session. 
 CMD bash
