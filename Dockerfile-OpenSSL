@@ -1,0 +1,11 @@
+FROM ghcr.io/logicethos/duo-sdk-docker:latest
+
+RUN wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz \
+    && tar -xzf openssl-1.1.1l.tar.gz \
+    && cd openssl-1.1.1l \
+    && ./Configure linux64-riscv64 shared no-asm --prefix=/build-libs \
+    && make && make install
+
+WORKDIR /build-libs
+
+CMD bash

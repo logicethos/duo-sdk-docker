@@ -1,0 +1,26 @@
+FROM ghcr.io/logicethos/duo-sdk-docker:latest
+
+RUN apt-get install -y libyaml-dev
+
+RUN wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz \
+    && tar -xzf openssl-1.1.1l.tar.gz \
+    && cd openssl-1.1.1l \
+    && ./Configure linux64-riscv64 shared no-asm --prefix=/build-libs \
+    && make && make install
+
+   
+RUN git clone https://github.com/cminyard/gensio.git
+WORKDIR /gensio
+RUN sh reconf
+RUN ./configure --host=riscv64-linux-gnu --prefix=/build-libs \
+    && make && make install
+
+## Clone the ser2net repository
+WORKDIR /
+RUN git clone https://github.com/cminyard/ser2net.git
+WORKDIR /ser2net
+RUN sh reconf
+#RUN ./configure --host=riscv64-linux-gnu --prefix=/build-libs \
+#    && make && make install
+
+CMD bash
