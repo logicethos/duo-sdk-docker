@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 
 ENV SDK_URL="https://github.com/milkv-duo/duo-app-sdk/releases/download/duo-app-sdk-v1.2.0/duo-sdk-v1.2.0.tar.gz"
-
+ENV TOOLCHAIN_FILE=/CMakeLists.txt
 ENV DEBIAN_FRONTEND=non-interactive
 
 RUN apt-get update \
@@ -29,6 +29,13 @@ ENV LD_LIBRARY_PATH="/build-libs/lib"
 RUN wget ${SDK_URL} -O duo-sdk.tar.gz
 RUN tar -xzf duo-sdk.tar.gz
 RUN rm -r duo-sdk.tar.gz
+
+# Create the toolchain file
+RUN echo "set(CMAKE_SYSTEM_NAME Linux)" >> $TOOLCHAIN_FILE
+RUN echo "set(CMAKE_SYSTEM_PROCESSOR riscv64)" >> $TOOLCHAIN_FILE
+RUN echo "set(CMAKE_CROSSCOMPILING TRUE) >> $TOOLCHAIN_FILE
+RUN echo "set(CMAKE_C_COMPILER riscv64-unknown-linux-musl-gcc)" >> $TOOLCHAIN_FILE
+RUN echo "set(CMAKE_CXX_COMPILER riscv64-unknown-linux-musl-g++)" >> $TOOLCHAIN_FILE
 
 #Default to a bash session. 
 CMD bash
