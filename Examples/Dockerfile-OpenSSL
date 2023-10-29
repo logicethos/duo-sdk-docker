@@ -6,6 +6,6 @@ RUN wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz \
     && ./Configure linux64-riscv64 shared no-asm --prefix=/build-libs \
     && make && make install
 
-WORKDIR /build-libs
+WORKDIR $BUILD_OUTPUT
 
 CMD bash

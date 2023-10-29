@@ -39,3 +39,11 @@ Copy the output:
 docker create --name openbuild-libsssl-lib openssl-lib
 docker cp openssl-lib:build-libs build-libs
 ```
+
+### cmake
+
+if you use cmake you can use the default tool chain file like this:
+
+```
+cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE
+```
