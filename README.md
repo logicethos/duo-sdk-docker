@@ -35,14 +35,20 @@ docker build -f Dockerfile-OpenSSL . -t openssl-lib
 ```
 
 Copy the output:
+The default is at /build-output
 ```
-docker create --name openbuild-libsssl-lib openssl-lib
-docker cp openssl-lib:build-libs build-libs
+docker create --name openssl-lib openssl-lib
+docker cp openssl-lib:build-output build-output
 ```
+
+### More Examples
+
+See the Examples folder.  Please submit pull requests, for app builds you
+have tested as working.
 
 ### cmake
 
-if you use cmake you can use the default tool chain file like this:
+If you use cmake you can use the default tool chain file like this:
 
 ```
 cmake -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE
