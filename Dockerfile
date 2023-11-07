@@ -20,7 +20,7 @@ ENV TOOLCHAIN_DIR=${MILKV_DUO_SDK}/riscv64-linux-musl-x86_64
 ENV TOOLCHAIN_PREFIX=${TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-musl-
 ENV SYSROOT=${MILKV_DUO_SDK}/rootfs
 
-ENV LDFLAGS="-mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d -L$BUILD_OUTPUT/lib"
+ENV LDFLAGS="-mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d -L$BUILD_OUTPUT/lib -Wl,-rpath-link,$BUILD_OUTPUT/lib"
 ENV CFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 ENV CXXFLAGS="-Wall -O3 -mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d"
 ENV PATH="$PATH:${TOOLCHAIN_DIR}/bin"
