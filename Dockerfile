@@ -26,6 +26,8 @@ ENV CXXFLAGS="-Wall -O3 -mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medan
 ENV PATH="$PATH:${TOOLCHAIN_DIR}/bin"
 ENV CPPFLAGS="-I$BUILD_OUTPUT/include"
 ENV LD_LIBRARY_PATH="$BUILD_OUTPUT/lib"
+RUN echo "$LD_LIBRARY_PATH" | tee /etc/ld.so.conf.d/build_output.conf
+
 
 #Download and install SDK
 RUN wget ${SDK_URL} -O duo-sdk.tar.gz
